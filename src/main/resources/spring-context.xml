@@ -10,5 +10,59 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="mc" class="com.spring01.factorybean.MyClass"></bean>
+    <bean id="mc" class="com.spring01.factorybean.MyClass"/>
+
+    <!--  在Spring 中注入对象  -->
+    <bean id="userDAO" class="com.spring01.dao.UserDaoImpl"/>
+    <bean id="userService" class="com.spring01.service.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+
+    <bean id="tl" class="com.spring01.entity.User">
+        <property name="id" value="1024"/>
+        <property name="password" value="123456"/>
+        <property name="sex" value="male"/>
+        <property name="bornDate" value="1994/10/01"/>
+    </bean>
+
+    <!--    //默认单例模式-->
+    <bean id="乐之" class="com.spring01.entity.User" scope="prototype">
+        <property name="id" value="1024"/>
+        <property name="password" value="123456"/>
+        <property name="sex" value="male"/>
+        <property name="bornDate" value="1994/10/01"/>
+        <!--  Araay     -->
+        <property name="hobbys">
+            <array>
+                <value>Run</value>
+                <value>Swim</value>
+                <value>Climb</value>
+            </array>
+        </property>
+        <!--set-->
+        <property name="phones">
+            <set>
+                <value>123456789</value>
+                <value>987654321</value>
+            </set>
+        </property>
+        <property name="names">
+            <list>
+                <value>bob</value>
+                <value>jack</value>
+            </list>
+        </property>
+        <property name="countries">
+            <map>
+                <entry key="CN" value="China"/>
+                <entry key="US" value="America"/>
+            </map>
+        </property>
+        <property name="files">
+            <props>
+                <prop key="first">One</prop>
+            </props>
+        </property>
+    </bean>
+
 </beans>
