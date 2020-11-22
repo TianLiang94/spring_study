@@ -6,16 +6,19 @@
     xml schema definition
  -->
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <bean id="mc" class="com.spring01.factorybean.MyClass"/>
 
     <!--  在Spring 中注入对象  -->
-    <bean id="userDAO" class="com.spring01.dao.UserDaoImpl"/>
-    <bean id="userService" class="com.spring01.service.UserServiceImpl">
-        <property name="userDAO" ref="userDAO"/>
+    <bean id="userDAO" class="com.spring01.dao.UserDaoImpl" />
+    <bean id="userService" class="com.spring01.service.UserServiceImpl" >
+        <property name="userDao" ref="userDAO"/>
     </bean>
 
     <bean id="tl" class="com.spring01.entity.User">

@@ -10,15 +10,16 @@ public class UserServiceImpl implements UserService{
 
     //强耦合
     //private UserDAO userDao = new UserDaoImpl();
-    private UserDAO userDAO;
     @Autowired
+    private UserDaoImpl userDAO;
 
     @Override
     public User queryUser() {
         return userDAO.queryUser();
     }
 
-    public void setUserDAO(UserDaoImpl userDAO) {
-        this.userDAO = userDAO;
+
+    public void setUserDao(UserDaoImpl userDao) {
+        this.userDAO = userDao;
     }
 }

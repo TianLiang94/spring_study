@@ -2,15 +2,31 @@ package com.spring01.dao;
 
 import com.spring01.entity.User;
 
-public class UserDaoImpl implements UserDAO{
+import java.util.List;
 
-        @Override
-        public User queryUser() {
-            User user = new User();
-            user.setId(1);
-            user.setPassword("333464");
-            user.setSex("男");
-            return user;
-        }
+public class UserDaoImpl implements UserDAO {
+
+    @Override
+    public List<User> queryUser() {
+        User user = new User();
+
+        //return user;
+        return null;
+    }
+
+    @Override
+    public Integer insertUser(User user) {
+        return null;
+    }
+
+    @Override
+    public Integer updateUser(User user) {
+        return null;
+    }
+
+    @Override
+    public Integer deleteUser(Integer id) {
+        return null;
+    }
 
 }

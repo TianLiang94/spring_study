@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd">
+        <context:property-placeholder location="classpath:jdbc.properties"/>
+
+        <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+                <!-- 基本配置 -->
+                <property name="driverClassName" value="${jdbc.driverClass}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+
+                <!-- 初始化配置-->
+                <property name="initialSize" value="${jdbc.init}"/>
+                <property name="minIdle" value="${jdbc.minIdle}"/>
+                <property name="maxActive" value="${jdbc.maxActive}"/>
+
+                <!--配置获取链接等待超时时间 -->
+                <property name="maxWait" value="60000"/>
+
+                <!--配置间隔多久进行一次检测 ，检查需要关闭的空闲连接，单位ms-->
+                <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+                <!-- 配置一个连接在池中最小的生存时间，ms -->
+                <property name="minEvictableIdleTimeMillis" value="300000"/>
+        </bean>
+
+        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+                <!--注入连接池-->
+                <property name="dataSource" ref="dataSource"/>
+                <!--注入dao-mapper文件信息-->
+                <property name="mapperLocations">
+                        <list>
+                                <value>classpath:com/spring01/dao/*.xml</value>
+                        </list>
+                </property>
+
+                <property name="typeAliasesPackage" value="com.spring01.entity"/>
+        </bean>
+
+        <!--配置MapperScannerConfiguer
+                管理DAO实现类的创建 并创建DAO对象，存入工厂管理
+                扫描所有DAO接口，去构建DAO实现
+                将DAO实现存入工厂管理
+                DAO实现对象在工厂中的 id是 ：“首字母小写的 接口类名”
+        -->
+        <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+                <!-- dao接口所在的包 -->
+                <property name="basePackage" value="com.spring01.dao"/>
+                <!--  -->
+        </bean>
+
+
+        <bean id="userService" class="com.spring01.service.UserServiceImpl">
+                <property name="userDao" value="userDAO"/>
+        </bean>
+</beans>

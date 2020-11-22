@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring01.dao.UserDAO">
+    <>
+
+    <insert id="insertUser" parameterType="com.spring01.entity.User">
+        insert into t_user (#{id} )
+    </insert>
+    <update id="updateUser">
+
+    </update>
+    <delete id="deleteUser">
+
+    </delete>
+    <select id="queryUser" resultType="com.spring01.entity.User">
+
+    </select>
+</mapper>
